@@ -10,12 +10,12 @@ const photosPath = "data/images/photos/";
 
 class Photo extends Record
 {
-    private $ownerId;       // Id du propriétaire de la photo
-    private $title;         // Titre de la photo
-    private $description;   // Description de la photo
-    private $creationDate;  // Date de création
-    private $shared;        // Indicateur de partage ("true" ou "false")
-    private $image;         // Url relatif de l'image
+    private $ownerId; // Id du propriétaire de la photo
+    private $title; // Titre de la photo
+    private $description; // Description de la photo
+    private $creationDate; // Date de création
+    private $shared; // Indicateur de partage ("true" ou "false")
+    private $image; // Url relatif de l'image
 
     public function __construct($recordData)
     {
@@ -45,7 +45,7 @@ class Photo extends Record
         if ($shared == "on")
             $this->shared = "true";
         else
-            $this->shared = $shared == "true" ? "true": "false";
+            $this->shared = $shared == "true" ? "true" : "false";
     }
     public function setImage($image)
     {
@@ -80,12 +80,65 @@ class Photo extends Record
     {
         return $this->image;
     }
+    public function render($isAdmin)
+    {
+        $id = $this->OwnerId();
+        $title = $this->Title();
+        $description = $this->Description();
+        $image = $this->Image();
+        $owner = UsersFile()->Get($this->OwnerId());
+        $ownerName = $owner->Name();
+        $ownerAvatar = $owner->Avatar();
+        $shared = $this->Shared() == "true";
+
+        $sharedIndicator = "";
+        $privateIndicator = "";
+
+        $editCmd = "";
+        $visible = $shared;
+
+        if (($id == (int) $_SESSION["currentUserId"])) {
+            $visible = true;
+            $editCmd = <<<HTML
+            <a href="editPhotoForm.php?id=$id" class="cmdIconSmall fa fa-pencil" title="Editer $title"> </a>
+            <a href="confirmDeletePhoto.php?id=$id"class="cmdIconSmall fa fa-trash" title="Effacer $title"> </a>
+            HTML;
+
+            if ($shared) {
+                $sharedIndicator = createIndicator('images/shared.png', 'partagée');
+            }
+        }
+
+        if ($isAdmin || $visible) {
+            if (!$shared && !$visible) { // Disable private indicator if own image is private
+                //if (!$shared) { // Show if own image is private 
+                $privateIndicator = createIndicator('images/private.png', 'privée');
+            }
+
+            $photoHTML = <<<HTML
+            <div class="photoLayout" photo_id="$id">
+                <div class="photoTitleContainer" title="$description">
+                    <div class="photoTitle ellipsis">$title</div> $editCmd</div>
+                <a href="viewPhoto.php" target="_blank">
+                    <div class="photoImage" style="background-image:url('$image')">
+                        <div class="UserAvatarSmall transparentBackground" style="background-image:url('$ownerAvatar')" title="$ownerName"></div>
+                        $sharedIndicator
+                        $privateIndicator
+                    </div>
+                </a>
+            </div>           
+            HTML;
+        }
+        return $photoHTML;
+    }
     public static function compare($photo_a, $photo_b)
     {
-        $time_a = (int)$photo_a->CreationDate();
-        $time_b = (int)$photo_b->CreationDate();
-        if ($time_a == $time_b) return 0;
-        if ($time_a > $time_b) return -1;
+        $time_a = (int) $photo_a->CreationDate();
+        $time_b = (int) $photo_b->CreationDate();
+        if ($time_a == $time_b)
+            return 0;
+        if ($time_a > $time_b)
+            return -1;
         return 1;
     }
     static function keyCompare($photo_a, $photo_b)
