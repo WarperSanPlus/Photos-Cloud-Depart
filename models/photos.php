@@ -82,6 +82,8 @@ class Photo extends Record
     }
     public function render($isAdmin)
     {
+        $photoHTML = "";
+        
         $id = $this->OwnerId();
         $title = $this->Title();
         $description = $this->Description();
