@@ -1,6 +1,7 @@
 <?php
 include 'php/sessionManager.php';
 include 'models/photos.php';
+
 userAccess();
 
 $viewTitle = "Modification de photo";

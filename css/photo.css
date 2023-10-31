@@ -25,6 +25,12 @@
     padding: 5px;
 }
 
+.photoImage:hover {
+    transform: scale(1.01);
+    box-shadow: 4px 2px #0000005c;
+    transition: 0.1s ease-out;
+}
+
 .photoTitleContainer {
     height: 40px;
     display:grid;

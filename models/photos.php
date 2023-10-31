@@ -10,12 +10,35 @@ const photosPath = "data/images/photos/";
 
 class Photo extends Record
 {
-    private $ownerId; // Id du propriétaire de la photo
-    private $title; // Titre de la photo
-    private $description; // Description de la photo
-    private $creationDate; // Date de création
-    private $shared; // Indicateur de partage ("true" ou "false")
-    private $image; // Url relatif de l'image
+    /**
+     * ID du propriétaire de la photo
+     */
+    private $ownerId;
+
+    /**
+     * Titre de la photo
+     */
+    private $title;
+
+    /**
+     * Description de la photo
+     */
+    private $description;
+
+    /**
+     * Date de publication de la photo
+     */
+    private $creationDate;
+
+    /**
+     * Indicateur de partage ("true" ou "false")
+     */
+    private $shared;
+
+    /**
+     * URL relatif de l'image
+     */
+    private $image;
 
     public function __construct($recordData)
     {
@@ -83,18 +106,19 @@ class Photo extends Record
     public function render($isAdmin)
     {
         $photoHTML = "";
-        
+
         $id = $this->OwnerId();
         $title = $this->Title();
         $description = $this->Description();
         $image = $this->Image();
-        $owner = UsersFile()->Get($this->OwnerId());
+        $owner = UsersFile()->Get($id);
         $ownerName = $owner->Name();
         $ownerAvatar = $owner->Avatar();
         $shared = $this->Shared() == "true";
 
-        $sharedIndicator = "";
-        $privateIndicator = "";
+        $indicators = [
+            Photo::createIndicator($ownerAvatar, $ownerName)
+        ];
 
         $editCmd = "";
         $visible = $shared;
@@ -106,30 +130,62 @@ class Photo extends Record
             <a href="confirmDeletePhoto.php?id=$id"class="cmdIconSmall fa fa-trash" title="Effacer $title"> </a>
             HTML;
 
+            // Show shared indicator only when it's your own image
             if ($shared) {
-                $sharedIndicator = createIndicator('images/shared.png', 'partagée');
+                array_push($indicators, Photo::createIndicator('images/shared.png', 'Photo partagée', 'photosList.php?sort=shared'));
             }
         }
 
+        // Always show shared indicator
+        // if ($shared) {
+        //     array_push($indicators, Photo::createIndicator('images/shared.png', 'Photo partagée', 'photosList.php?sort=shared'));
+        // }
+
+        // Disable private indicator if own image is private
+        if (!$shared && !$visible) { 
+            //if (!$shared) { // Show if own image is private 
+            array_push($indicators, Photo::createIndicator('images/private.png', 'Photo privée', 'photosList.php?sort=privated'));
+        }
+
         if ($isAdmin || $visible) {
-            if (!$shared && !$visible) { // Disable private indicator if own image is private
-                //if (!$shared) { // Show if own image is private 
-                $privateIndicator = createIndicator('images/private.png', 'privée');
+            $indicatorsHtml = "";
+
+            foreach ($indicators as $indicator) {
+                $indicatorsHtml .= $indicator;
             }
 
             $photoHTML = <<<HTML
             <div class="photoLayout" photo_id="$id">
                 <div class="photoTitleContainer" title="$description">
-                    <div class="photoTitle ellipsis">$title</div> $editCmd</div>
-                <a href="viewPhoto.php" target="_blank">
-                    <div class="photoImage" style="background-image:url('$image')">
-                        <div class="UserAvatarSmall transparentBackground" style="background-image:url('$ownerAvatar')" title="$ownerName"></div>
-                        $sharedIndicator
-                        $privateIndicator
+                    <div class="photoTitle ellipsis">
+                        $title
                     </div>
-                </a>
-            </div>           
+                    $editCmd
+                </div>
+                <div style="position:relative;">
+                    <a href="viewPhoto.php" target="_blank">
+                        <div class="photoImage" style="background-image:url('$image');"></div>
+                    </a>
+                    <div style="position:absolute; top:5px; left:5px">
+                        $indicatorsHtml
+                    </div>
+                </div>
+            </div>
             HTML;
+
+            // $photoHTML = <<<HTML
+            // <div class="photoLayout" photo_id="$id">
+            //     <div class="photoTitleContainer" title="$description">
+            //         <div class="photoTitle ellipsis">$title</div> $editCmd</div>
+            //     <a href="viewPhoto.php" target="_blank">
+            //         <div class="photoImage" style="background-image:url('$image')">
+            //             <div class="UserAvatarSmall transparentBackground" style="background-image:url('$ownerAvatar')" title="$ownerName"></div>
+            //             $sharedIndicator
+            //             $privateIndicator
+            //         </div>
+            //     </a>
+            // </div>           
+            // HTML;
         }
         return $photoHTML;
     }
@@ -146,6 +202,23 @@ class Photo extends Record
     static function keyCompare($photo_a, $photo_b)
     {
         return 1;
+    }
+
+    static function createIndicator($src, $title, $action = null)
+    {
+        $actionSet = isset($action);
+
+        $indicatorHtml = $actionSet ? "<a" : "<div";
+        $indicatorHtml .= ' class="UserAvatarSmall transparentBackground UserIndicator"';
+        $indicatorHtml .= 'style="background-image:url(\'' . $src . '\');"';
+
+        if ($actionSet) {
+            $indicatorHtml .= 'href="' . $action . '"';
+        }
+
+        $indicatorHtml .= 'tite="' . $title . '"';
+        $indicatorHtml .= ">";
+        return $indicatorHtml . ($actionSet ? "</a>" : "</div>");
     }
 }
 
