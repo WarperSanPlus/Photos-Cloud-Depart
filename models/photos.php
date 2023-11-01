@@ -97,7 +97,7 @@ class Photo extends Record
     }
     public function Shared()
     {
-        return $this->shared;
+        return $this->shared == "true";
     }
     public function Image()
     {
@@ -105,8 +105,6 @@ class Photo extends Record
     }
     public function render($isAdmin)
     {
-        $photoHTML = "";
-
         $id = $this->OwnerId();
         $title = $this->Title();
         $description = $this->Description();
@@ -114,7 +112,7 @@ class Photo extends Record
         $owner = UsersFile()->Get($id);
         $ownerName = $owner->Name();
         $ownerAvatar = $owner->Avatar();
-        $shared = $this->Shared() == "true";
+        $shared = $this->Shared();
 
         $indicators = [
             Photo::createIndicator($ownerAvatar, $ownerName)
@@ -146,6 +144,8 @@ class Photo extends Record
             //if (!$shared) { // Show if own image is private 
             array_push($indicators, Photo::createIndicator('images/private.png', 'Photo privée', 'photosList.php?sort=privated'));
         }
+
+        $photoHTML = "";
 
         if ($isAdmin || $visible) {
             $indicatorsHtml = "";

@@ -5,6 +5,8 @@
     grid-template-columns: repeat(auto-fill, 360px);
     gap: 10px;
     padding: 10px;
+    
+    justify-content: center; /* Center photos layout */
 }
 
 .photoLayout {
@@ -23,12 +25,13 @@
     height: 265px;
     border-radius: 9px;
     padding: 5px;
+
+    transition: scale 0.1s, box-shadow 0.1s;
 }
 
 .photoImage:hover {
-    transform: scale(1.01);
+    scale: 1.01;
     box-shadow: 4px 2px #0000005c;
-    transition: 0.1s ease-out;
 }
 
 .photoTitleContainer {

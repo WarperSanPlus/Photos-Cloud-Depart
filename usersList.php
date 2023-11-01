@@ -2,21 +2,30 @@
 include 'php/sessionManager.php';
 include_once "models/Users.php";
 
-function createGestionIcon($id, $image, $extraValueName = null, $extraValue = null, $url = null) {
+/**
+ * @param mixed $id ID de l'utilisateur concerné
+ * @param mixed $image Lien pour l'image à afficher
+ * @param mixed $title Message à afficher lorsque l'utilisateur garde le curseur sur l'image
+ * @param mixed $extraValueName Nom du paramètre à envoyer en supplément
+ * @param mixed $extraValue Valeur supplémentaire à envoyer
+ * @param mixed $url Page à appeler lorsque l'image est cliquée
+ */
+function createGestionIcon($id, $image, $title, $extraValueName = null, $extraValue = null, $url = null)
+{
     if (!isset($url)) {
         $url = "";
     }
-    
-    $html = <<< HTML
+
+    $html = <<<HTML
     <form method='post' action='$url'>
         <input type="hidden" name="targetId" value="$id"> 
     HTML;
 
     if (isset($extraValueName) && isset($extraValue)) {
-        $html.= "<input type='hidden' name='$extraValueName' value='$extraValue'>";
+        $html .= "<input type='hidden' name='$extraValueName' value='$extraValue'>";
     }
 
-    return $html."<input type='image' name='submit' src='$image' class='GestionIcon'></form>";
+    return $html . "<input type='image' name='submit' src='$image' class='GestionIcon' title='$title'></form>";
 }
 
 adminAccess();
@@ -41,13 +50,38 @@ foreach ($list as $User) {
     $isAdmin = $User->isAdmin();
 
     // Gestion Icons
+    // --- User block ---
     $blockImage = $isBlocked ? "images/blocked.png" : "images/unblocked.png";
-    $blocked = createGestionIcon($id, $blockImage, "nextBlock", !$isBlocked, "setBlockUser.php");
+    $blocked = createGestionIcon(
+        $id,
+        $blockImage,
+        $isBlocked ? "Débloquer $name" : "Bloquer $name", // Title
+        "nextBlock",
+        !$isBlocked,
+        "setBlockUser.php"
+    );
+    // ---
 
-    $delete = createGestionIcon($id, 'images/delete.png', '');
+    // -- Delete user
+    $delete = createGestionIcon(
+        $id,
+        'images/delete.png',
+        "Supprimer le compte de $name", // Title
+        ''
+    );
+    // ---
 
+    // --- Admin promote ---
     $adminImage = $isAdmin ? "images/admin.png" : "images/user.png";
-    $admin = createGestionIcon($id, $adminImage, 'nextAdmin', !$isAdmin,'setAdminPermission.php');
+    $admin = createGestionIcon(
+        $id,
+        $adminImage,
+        $isAdmin ? "Dégrader $name" : "Promouvoir $name", // Title
+        'nextAdmin',
+        !$isAdmin,
+        'setAdminPermission.php'
+    );
+    // ---
 
     $UserHTML = <<<HTML
     <div class="UserRow" User_id="$id">
@@ -60,8 +94,8 @@ foreach ($list as $User) {
                 </div>
                 <div class="GestionGrid">
                     $blocked
-                    $delete
                     $admin
+                    $delete
                 </div>
             </div>
         </div>
