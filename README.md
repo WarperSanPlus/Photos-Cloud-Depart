@@ -2,6 +2,7 @@
 - [ ] Ajouter une page qui affiche les détails d’une photo (Avatar du créateur, nom du créateur, titre, image de la photo de taille réactive,
 description de largeur réactive, date et heure de création en français). Cette page sera obtenue en cliquant sur la photo dans la liste de photos.
 - [ ] Donner accès la l'effacement d'un usager avec confirmation de retrait[^3].
+- [ ] Clean components by set 'user-select' to 'none'.
 
 # WIP
 - [ ] Empêcher l’accès illégal des pages réservées aux admins[^2].
