@@ -165,7 +165,7 @@ class Photo extends Record
                     $editCmd
                 </div>
                 <div style="position:relative;">
-                    <a href="viewPhoto.php" target="_blank">
+                    <a href="viewPhoto.php?Id=$id" target="_blank">
                         <div class="photoImage" style="background-image:url('$image');"></div>
                     </a>
                     <div style="position:absolute; top:5px; left:5px">
