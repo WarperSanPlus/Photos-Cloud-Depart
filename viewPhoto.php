@@ -4,13 +4,19 @@ include "models/photos.php";
 include "models/users.php";
 $viewContent = "";
 $userID="";
-$id  = $_GET["Id"];
+$id =1;
+if (isset($_GET["Id"]))
+$id = $_GET["Id"];
+else{
+    //rediriger
+}
 $photoFile = PhotosFile();
+$photo = PhotosFile()->get($id);
 $list = $photoFile->toArray();
 $userFile = UsersFile();
 $users = $userFile->toArray();
 $avatar;
-foreach ($list as $photo) {
+
     if ($photo->Id() == $id) {
      $userID =$photo->OwnerId();
      foreach($users as $user) {
@@ -44,7 +50,7 @@ HTML;
     $viewContent .= $temporaire;
    
     }
-}
+
 
 
 
