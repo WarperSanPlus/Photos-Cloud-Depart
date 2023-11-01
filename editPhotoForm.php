@@ -6,9 +6,10 @@ userAccess();
 
 $viewTitle = "Modification de photo";
 
-$id = (int) $_GET["id"];
 if (!isset($_GET["id"]))
     redirect("illegalAction.php");
+
+$id = (int) $_GET["id"];
 
 $photo = PhotosFile()->get($id);
 

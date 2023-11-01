@@ -105,33 +105,35 @@ class Photo extends Record
     }
     public function render($isAdmin)
     {
-        $id = $this->OwnerId();
+        $id = $this->Id();
         $title = $this->Title();
         $description = $this->Description();
         $image = $this->Image();
-        $owner = UsersFile()->Get($id);
+        $shared = $this->Shared();
+
+        $ownerId = $this->OwnerId();
+        $owner = UsersFile()->Get($ownerId);
         $ownerName = $owner->Name();
         $ownerAvatar = $owner->Avatar();
-        $shared = $this->Shared();
 
         $indicators = [
             Photo::createIndicator($ownerAvatar, $ownerName)
         ];
 
-        $editCmd = "";
-        $visible = $shared;
-
-        if (($id == (int) $_SESSION["currentUserId"])) {
+        if (isset($_SESSION["currentUserId"]) && $ownerId == (int) $_SESSION["currentUserId"]) {
             $visible = true;
             $editCmd = <<<HTML
-            <a href="editPhotoForm.php?id=$id" class="cmdIconSmall fa fa-pencil" title="Editer $title"> </a>
-            <a href="confirmDeletePhoto.php?id=$id"class="cmdIconSmall fa fa-trash" title="Effacer $title"> </a>
+            <a href="editPhotoForm.php?id=$id" class="cmdIconSmall fa fa-pencil" title="Modifier '$title'"> </a>
+            <a href="confirmDeletePhoto.php?id=$id"class="cmdIconSmall fa fa-trash" title="Effacer '$title'"> </a>
             HTML;
 
             // Show shared indicator only when it's your own image
             if ($shared) {
                 array_push($indicators, Photo::createIndicator('images/shared.png', 'Photo partagée', 'photosList.php?sort=shared'));
             }
+        } else {
+            $visible = $shared;
+            $editCmd = "";
         }
 
         // Always show shared indicator
@@ -140,7 +142,7 @@ class Photo extends Record
         // }
 
         // Disable private indicator if own image is private
-        if (!$shared && !$visible) { 
+        if (!$shared && !$visible) {
             //if (!$shared) { // Show if own image is private 
             array_push($indicators, Photo::createIndicator('images/private.png', 'Photo privée', 'photosList.php?sort=privated'));
         }

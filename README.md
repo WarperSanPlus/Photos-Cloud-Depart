@@ -2,8 +2,6 @@
 - [ ] Ajouter une page qui affiche les détails d’une photo (Avatar du créateur, nom du créateur, titre, image de la photo de taille réactive,
 description de largeur réactive, date et heure de création en français). Cette page sera obtenue en cliquant sur la photo dans la liste de photos.
 - [ ] Donner accès la l'effacement d'un usager avec confirmation de retrait[^3].
-- [ ] Régler la modification de photo
-- [ ] Régler la suppression de photo
 
 # WIP
 - [ ] Empêcher l’accès illégal des pages réservées aux admins[^2].
@@ -19,6 +17,8 @@ description de largeur réactive, date et heure de création en français). Cett
 - [x] Permettre aux usagers admins l’accès total aux photos de tous les usagers.
 - [x] Tri des photos par leur date de création (décroissante).
 - [x] Tri des photos par créateur (ordre ascendant de noms de créateurs).
+- [X] Régler la suppression de photo
+- [X] Régler la modification de photo
 
 [^1]: À optimiser
 [^2]: Fait dans les pages déjà faites
