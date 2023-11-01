@@ -18,7 +18,8 @@ foreach ($list as $photo) {
         $avatar = $user->avatar();
       
         $temporaire= <<<HTML
-            <img class ='imageUploader'  src=$avatar alt="teste"/>
+        <div class="photoImage" style="background-image:url('$avatar');"></div>
+          
        HTML;
         $viewContent .= $user->name();
         $viewContent .= $temporaire;
@@ -26,8 +27,13 @@ foreach ($list as $photo) {
       
      }
      
- 
-    $viewContent .= $photo->render(true);
+     $viewContent .= $photo->Title(true);
+     $image = $photo->Image(true);
+     $temporaire= <<<HTML
+      <div class="photoImage" style="background-image:url('$image');"></div>
+  
+   HTML;
+    $viewContent .= $temporaire;
     $viewContent .= $photo->Description();
     $date = $photo->creationDate();
     $date =  date("Y-m-d H:i:s", $date);
