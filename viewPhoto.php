@@ -2,24 +2,34 @@
 include 'php/sessionManager.php';
 include "models/photos.php";
 include "models/users.php";
-$viewContent = "";
+
+$temporaire= <<<HTML
+<div class="loginForm">
+  
+HTML;
+$viewContent =$temporaire;
 $userID="";
-$id =1;
+$errorPage = "errorPage";
 if (isset($_GET["Id"]))
 $id = $_GET["Id"];
 else{
     //rediriger
 }
+
 $photoFile = PhotosFile();
-$photo = PhotosFile()->get($id);
-$list = $photoFile->toArray();
-$userFile = UsersFile();
-$users = $userFile->toArray();
+$photo = PhotosFile()->get((int)$id);
+if ($photo == null) {
+redirect($errorPage);
+}
+$user = UsersFile()->get($photo->OwnerId());
+if ($user == null) {
+    redirect($errorPage);
+    }
 $avatar;
 
-    if ($photo->Id() == $id) {
+   
      $userID =$photo->OwnerId();
-     foreach($users as $user) {
+     
       if ($user->Id() == $userID) {
         $avatar = $user->avatar();
       
@@ -31,7 +41,7 @@ $avatar;
         $viewContent .= $temporaire;
       }
       
-     }
+     
      
      $viewContent .= $photo->Title(true);
      $image = $photo->Image(true);
@@ -45,13 +55,16 @@ $avatar;
     $date =  date("Y-m-d H:i:s", $date);
     $temporaire= <<<HTML
     <div> <p> cette photo a été posté le " $date "<p><div>
-HTML;
+   HTML;
 
     $viewContent .= $temporaire;
    
-    }
+    
 
-
+    $temporaire= <<<HTML
+    <div>
+      
+    HTML;
 
 
 
