@@ -34,8 +34,9 @@ $avatar;
         $avatar = $user->avatar();
       
         $temporaire= <<<HTML
-        <div class="photoImage" style="background-image:url('$avatar');"></div>
-        <img class="photoImage" src="$avatar"  />
+        <div>
+        <img src="$avatar"  />
+        </div>
        HTML;
         $viewContent .= $user->name();
         $viewContent .= $temporaire;
@@ -46,7 +47,12 @@ $avatar;
      $viewContent .= $photo->Title(true);
      $image = $photo->Image(true);
      $temporaire= <<<HTML
-      <div class="photoImage" style="background-image:url('$image');"></div>
+
+         <div>
+        <img  src="$image"  />
+        </div>
+
+    
   
    HTML;
     $viewContent .= $temporaire;
