@@ -3,8 +3,6 @@ include 'php/sessionManager.php';
 include "models/photos.php";
 include "models/users.php";
 
-
-
 $viewName = "photoList";
 
 userAccess();
@@ -21,7 +19,7 @@ $list = $photoFile->toArray();
 
 $viewContent = "<div class='photosLayout'>";
 
-$currentUserId = $_SESSION["currentUserId"];
+$currentUserId = isset($_SESSION["currentUserId"]) ? $_SESSION["currentUserId"] : -1;
 
 // Charge et affiche les photos
 $isAdmin = isset($_SESSION["isAdmin"]) ? $_SESSION["isAdmin"] : false;
