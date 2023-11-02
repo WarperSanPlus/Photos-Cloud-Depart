@@ -4,7 +4,7 @@ include "models/photos.php";
 include "models/users.php";
 
 $temporaire= <<<HTML
-<div class="loginForm">
+<div class="loginForm"  style=  text-align: center;>
   
 HTML;
 $viewContent =$temporaire;
@@ -30,16 +30,16 @@ $avatar;
    
      $userID =$photo->OwnerId();
      
-      if ($user->Id() == $userID) {
+      
         $avatar = $user->avatar();
       
         $temporaire= <<<HTML
         <div class="photoImage" style="background-image:url('$avatar');"></div>
-          
+        <img class="photoImage" src="$avatar"  />
        HTML;
         $viewContent .= $user->name();
         $viewContent .= $temporaire;
-      }
+      
       
      
      
