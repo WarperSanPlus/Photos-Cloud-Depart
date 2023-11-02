@@ -4,13 +4,19 @@ include "models/photos.php";
 include "models/users.php";
 $viewContent = "";
 $userID="";
-$id  = $_GET["Id"];
+$id =1;
+if (isset($_GET["Id"]))
+$id = $_GET["Id"];
+else{
+    //rediriger
+}
 $photoFile = PhotosFile();
+$photo = PhotosFile()->get($id);
 $list = $photoFile->toArray();
 $userFile = UsersFile();
 $users = $userFile->toArray();
 $avatar;
-foreach ($list as $photo) {
+
     if ($photo->Id() == $id) {
      $userID =$photo->OwnerId();
      foreach($users as $user) {
@@ -18,7 +24,8 @@ foreach ($list as $photo) {
         $avatar = $user->avatar();
       
         $temporaire= <<<HTML
-            <img class ='imageUploader'  src=$avatar alt="teste"/>
+        <div class="photoImage" style="background-image:url('$avatar');"></div>
+          
        HTML;
         $viewContent .= $user->name();
         $viewContent .= $temporaire;
@@ -26,8 +33,13 @@ foreach ($list as $photo) {
       
      }
      
- 
-    $viewContent .= $photo->render(true);
+     $viewContent .= $photo->Title(true);
+     $image = $photo->Image(true);
+     $temporaire= <<<HTML
+      <div class="photoImage" style="background-image:url('$image');"></div>
+  
+   HTML;
+    $viewContent .= $temporaire;
     $viewContent .= $photo->Description();
     $date = $photo->creationDate();
     $date =  date("Y-m-d H:i:s", $date);
@@ -38,7 +50,7 @@ HTML;
     $viewContent .= $temporaire;
    
     }
-}
+
 
 
 
