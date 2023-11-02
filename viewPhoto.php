@@ -1,82 +1,99 @@
 <?php
 include 'php/sessionManager.php';
+
+$errorPage = "errorPage.php";
+
+// --- Get Photo ID ---
+if (!isset($_GET["Id"])) {
+    redirect($errorPage);
+}
+
+$id = $_GET["Id"];
+// ---
+
 include "models/photos.php";
 include "models/users.php";
 
-$temporaire= <<<HTML
-<div class="loginForm"  style=  text-align: center;>
-  
-HTML;
-$viewContent =$temporaire;
-$userID="";
-$errorPage = "errorPage";
-if (isset($_GET["Id"]))
-$id = $_GET["Id"];
-else{
-    //rediriger
-}
-
-$photoFile = PhotosFile();
-$photo = PhotosFile()->get((int)$id);
+// --- Get Photo ---
+$photo = PhotosFile()->get((int) $id);
 if ($photo == null) {
-redirect($errorPage);
+    redirect($errorPage);
 }
+// ---
+
+// --- Get User ---
 $user = UsersFile()->get($photo->OwnerId());
+
 if ($user == null) {
     redirect($errorPage);
-    }
-$avatar;
+}
+// ---
 
-   
-     $userID =$photo->OwnerId();
-     
-      
-        $avatar = $user->avatar();
-      
-        $temporaire= <<<HTML
-        <div>
-        <img src="$avatar"  />
-        </div>
-       HTML;
-        $viewContent .= $user->name();
-        $viewContent .= $temporaire;
-      
-      
-     
-     
-     $viewContent .= $photo->Title(true);
-     $image = $photo->Image(true);
-     $temporaire= <<<HTML
+$viewContent = <<<HTML
+<div style="margin-top:1em;">
+HTML;
 
-         <div>
-        <img  src="$image"  />
-        </div>
+// --- Username ---
+$username = $user->name();
 
-    
-  
-   HTML;
-    $viewContent .= $temporaire;
-    $viewContent .= $photo->Description();
-    $date = $photo->creationDate();
-    $date =  date("Y-m-d H:i:s", $date);
-    $temporaire= <<<HTML
-    <div> <p> cette photo a été posté le " $date "<p><div>
-   HTML;
+// $viewContent .= $username;
+// ---
 
-    $viewContent .= $temporaire;
-   
-    
+// --- Avatar ---
+$avatar = $user->avatar();
 
-    $temporaire= <<<HTML
-    <div>
-      
-    HTML;
+// $viewContent .= <<<HTML
+// <div><img src="$avatar"/></div>
+// HTML;
+// ---
 
+// --- Titre ---
+$titre = $photo->Title();
 
+// $viewContent .= $titre;
+// ---
 
+// --- Image ---
+$image = $photo->Image();
 
+$viewContent .= <<<HTML
+<div style="width: fit-content;margin: auto;"><img src="$image" class="photoViewContentBorder" style="max-width:100%;max-height:60vh;"/></div>
+HTML;
+// ---
 
+// --- Description ---
+$description = $photo->Description();
 
+$viewContent .= <<<HTML
+<div class="photoViewDescription photoViewContentBorder">$description</div>
+HTML;
+// ---
 
+// --- Date ---
+$date = date("Y-m-d H:i:s", $photo->creationDate());
+
+// $viewContent .= <<<HTML
+// <div> <p> cette photo a été posté le " $date "<p><div>
+// HTML;
+// ---
+
+$userAvatarIndicator = Photo::createIndicator($avatar, $username);
+
+$viewContent = <<<HTML
+<div class="photoViewTitle">
+    <div style="display: grid;grid-template-columns: auto auto;">
+        $userAvatarIndicator
+        <div><p class="viewTitle">$username</p></div>
+    </div>
+    <div style="text-align:center;font-size:2em;text-decoration:underline;font-weight:bold;"><p>$titre</p></div>
+    <div><p>$date</p></div>
+</div>
+$viewContent
+HTML;
+
+// --- Titre de la page ---
+// $viewTitle = "'$titre' par $username";
+$viewTitle = "Photo";
+// ---
 
 include "views/master.php";

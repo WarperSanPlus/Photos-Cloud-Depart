@@ -206,7 +206,7 @@ class Photo extends Record
         return 1;
     }
 
-    static function createIndicator($src, $title, $action = null)
+    public static function createIndicator($src, $title, $action = null)
     {
         $actionSet = isset($action);
 
