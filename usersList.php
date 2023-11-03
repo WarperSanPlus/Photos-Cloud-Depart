@@ -27,6 +27,23 @@ function createGestionIcon($id, $image, $title, $extraValueName = null, $extraVa
 
     return $html . "<input type='image' name='submit' src='$image' class='GestionIcon' title='$title'></form>";
 }
+function creategestionuser($id, $image, $title, $extraValueName = null, $extraValue = null, $url = null)
+{
+    if (!isset($url)) {
+        $url = "";
+    }
+$url .='?Id=$id';
+    $html = <<<HTML
+    <form method='post' action='$url'>
+        <input type="hidden" name="targetId" value="$id"> 
+    HTML;
+
+    if (isset($extraValueName) && isset($extraValue)) {
+        $html .= "<input type='hidden' name='$extraValueName' value='$extraValue'>";
+    }
+
+    return $html . "<input type='image' name='submit' src='$image' class='GestionIcon' title='$title'></form>";
+}
 
 adminAccess();
 
@@ -39,7 +56,7 @@ $currentUserId = isset($_SESSION["currentUserId"]) ? $_SESSION["currentUserId"] 
 foreach ($list as $User) {
     $id = strval($User->id());
     $email = $User->Email();
-
+    $ids = (int)($User->id());
     if ($id == $currentUserId || $email == "admin@clg.qc.ca") { // Always hide Super Admin
         continue;
     }
@@ -63,11 +80,12 @@ foreach ($list as $User) {
     // ---
 
     // -- Delete user
-    $delete = createGestionIcon(
+    $delete = creategestionuser(
         $id,
         'images/delete.png',
         "Supprimer le compte de $name", // Title
-        ''
+        '',
+        '', 'confirmationDeletusage.php'
     );
     // ---
 

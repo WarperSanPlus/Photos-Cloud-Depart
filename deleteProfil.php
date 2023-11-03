@@ -4,7 +4,7 @@ include 'models/users.php';
 include 'models/photos.php';
 
 userAccess();
-$currentUserId = (int) $_SESSION["currentUserId"];
+$currentUserId = (int) $_SESSION["Ids"];
 
 do {
     $photos = PhotosFile()->toArray();
