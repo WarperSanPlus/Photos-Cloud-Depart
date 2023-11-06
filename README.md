@@ -1,16 +1,14 @@
 # TO DO
 - [ ] Clean components by set 'user-select' to 'none'.
-- [ ] Afficher la date de création selon l'horaire local
-- [ ] Specialize errorPage.php
 - [ ] Check if the different page's menu's options are appropriate
-- [ ] Move title from viewPhoto.php from 'title bar' to 'content'.
+
+- [ ] Specialize errorPage.php
 - [ ] Scale pictures depending on screen size
 
 # WIP
 - [ ] Empêcher l’accès illégal des pages réservées aux admins[^2].
 - [x] Donner accès à la fonction octroyer/enlever le droit administrateur[^1].
 - [x] Donner accès à la fonction bloquer/débloquer[^1].
-- [x] Voir mes photos (photos de l’usager connecté)[^4].
 
 # DONE
 - [x] Produire la page qui affiche la liste des usagers (Gestion des usagers, excluant l’usager admin connecté).
@@ -29,7 +27,9 @@ description de largeur réactive, date et heure de création en français). Cett
 - [X] Center the avatar on deleteProfil.php
 - [X] Comment the super admin mention in usersList.php 
 - [X] Make the admin able to modify all pictures
+- [x] Voir mes photos (photos de l’usager connecté).
+- [X] Afficher la date de création selon l'horaire local
+- [X] Move title from viewPhoto.php from 'title bar' to 'content'.
 
 [^1]: À optimiser
 [^2]: Fait dans les pages déjà faites
-[^4]: Fonctionnalité optionnelle à confirmer
