@@ -49,9 +49,11 @@ $avatar = $user->avatar();
 
 // --- Titre ---
 $titre = $photo->Title();
-
+$viewContent .= <<<HTML
+<div style="text-align:center;font-size:2em;text-decoration:underline;font-weight:bold;"><p>$titre</p></div>
+HTML;
 // $viewContent .= $titre;
-// ---
+
 
 // --- Image ---
 $image = $photo->Image();
@@ -70,11 +72,24 @@ HTML;
 // ---
 
 // --- Date ---
-$date = date("Y-m-d H:i:s", $photo->creationDate());
+
+//$date = date("l-F-Y H:i:s", $photo->creationDate());
+
+$fmt = datefmt_create(
+    'fr-FR',
+    IntlDateFormatter::FULL,
+    IntlDateFormatter::FULL,
+    'America/Los_Angeles',
+    IntlDateFormatter::GREGORIAN,
+    'cccc d LLLL y HH:mm:ss'
+);
+$date =datefmt_format($fmt, $photo->creationDate());
+
+
 
 // $viewContent .= <<<HTML
 // <div> <p> cette photo a été posté le " $date "<p><div>
-// HTML;
+// HTML;    
 // ---
 
 $userAvatarIndicator = Photo::createIndicator($avatar, $username);
@@ -85,7 +100,6 @@ $viewContent = <<<HTML
         $userAvatarIndicator
         <div><p class="viewTitle">$username</p></div>
     </div>
-    <div style="text-align:center;font-size:2em;text-decoration:underline;font-weight:bold;"><p>$titre</p></div>
     <div><p>$date</p></div>
 </div>
 $viewContent
