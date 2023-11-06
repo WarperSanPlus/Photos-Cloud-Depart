@@ -1,7 +1,4 @@
 # TO DO
-- [ ] Ajouter une page qui affiche les détails d’une photo (Avatar du créateur, nom du créateur, titre, image de la photo de taille réactive,
-description de largeur réactive, date et heure de création en français). Cette page sera obtenue en cliquant sur la photo dans la liste de photos.
-- [ ] Donner accès la l'effacement d'un usager avec confirmation de retrait[^3].
 - [ ] Clean components by set 'user-select' to 'none'.
 
 # WIP
@@ -20,8 +17,10 @@ description de largeur réactive, date et heure de création en français). Cett
 - [x] Tri des photos par créateur (ordre ascendant de noms de créateurs).
 - [X] Régler la suppression de photo
 - [X] Régler la modification de photo
+- [X] Ajouter une page qui affiche les détails d’une photo (Avatar du créateur, nom du créateur, titre, image de la photo de taille réactive,
+description de largeur réactive, date et heure de création en français). Cette page sera obtenue en cliquant sur la photo dans la liste de photos.
+- [ ] Donner accès à l'effacement d'un usager avec confirmation de retrait.
 
 [^1]: À optimiser
 [^2]: Fait dans les pages déjà faites
-[^3]: Manque d'informations
 [^4]: Fonctionnalité optionnelle à confirmer
