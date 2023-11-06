@@ -1,9 +1,9 @@
 # TO DO
-- [ ] Clean components by set 'user-select' to 'none'.
-- [ ] Check if the different page's menu's options are appropriate
-
 - [ ] Specialize errorPage.php
 - [ ] Scale pictures depending on screen size
+
+- [ ] Clean components by set 'user-select' to 'none'.
+- [ ] Check if the different page's menu's options are appropriate
 
 # WIP
 - [ ] Empêcher l’accès illégal des pages réservées aux admins[^2].
