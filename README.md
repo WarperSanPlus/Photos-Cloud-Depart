@@ -3,6 +3,7 @@
 - [ ] Move the picture deletion from deleteProfil to deletePhoto
 - [ ] Evaluate if any 'include' should be 'require' instead 
 - [ ] Donner accès à l'effacement d'un usager avec confirmation de retrait.
+- [ ] Afficher la date de création selon l'horaire local
 
 # WIP
 - [ ] Empêcher l’accès illégal des pages réservées aux admins[^2].

@@ -82,7 +82,7 @@ $userAvatarIndicator = Photo::createIndicator($avatar, $username);
 $viewContent = <<<HTML
 <div class="photoViewTitle">
     <div style="display: grid;grid-template-columns: auto auto;">
-        $   
+        $userAvatarIndicator
         <div><p class="viewTitle">$username</p></div>
     </div>
     <div style="text-align:center;font-size:2em;text-decoration:underline;font-weight:bold;"><p>$titre</p></div>
