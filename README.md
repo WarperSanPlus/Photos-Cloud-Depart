@@ -1,5 +1,8 @@
 # TO DO
 - [ ] Clean components by set 'user-select' to 'none'.
+- [ ] Move the picture deletion from deleteProfil to deletePhoto
+- [ ] Evaluate if any 'include' should be 'require' instead 
+- [ ] Donner accès à l'effacement d'un usager avec confirmation de retrait.
 
 # WIP
 - [ ] Empêcher l’accès illégal des pages réservées aux admins[^2].
@@ -19,7 +22,6 @@
 - [X] Régler la modification de photo
 - [X] Ajouter une page qui affiche les détails d’une photo (Avatar du créateur, nom du créateur, titre, image de la photo de taille réactive,
 description de largeur réactive, date et heure de création en français). Cette page sera obtenue en cliquant sur la photo dans la liste de photos.
-- [ ] Donner accès à l'effacement d'un usager avec confirmation de retrait.
 
 [^1]: À optimiser
 [^2]: Fait dans les pages déjà faites

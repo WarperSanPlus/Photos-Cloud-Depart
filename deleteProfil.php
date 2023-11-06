@@ -3,20 +3,24 @@ include 'php/sessionManager.php';
 include 'models/users.php';
 include 'models/photos.php';
 
-userAccess();
-$currentUserId = (int) $_SESSION["Ids"];
+adminAccess();
 
-do {
-    $photos = PhotosFile()->toArray();
-    $oneDeleted = false;
-    foreach ($photos as $photo) {
-        if ($photo->OwnerId() == $currentUserId) {
-            $oneDeleted = true;
-            PhotosFile()->remove($photo->Id());
-            break;
-        }
-    }
-} while ($oneDeleted);
+if (!isset($_POST["Id"]))
+    redirect("errorPage.php");
+
+$currentUserId = (int) $_POST["Id"];
+
+$photosFile = PhotosFile();
+$photos = $photosFile->toArray();
+
+for ($i = count($photos) - 1; $i >= 0; $i--) {
+    $photo = $photos[$i];
+
+    if ($photo->OwnerId() != $currentUserId)
+        continue;
+
+    $photosFile->remove($photo->Id());
+}
 
 UsersFile()->remove($currentUserId);
-redirect('loginForm.php');
+redirect('usersList.php');

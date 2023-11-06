@@ -5,7 +5,7 @@ $viewTitle = "Retrait de photo";
 
 userAccess();
 
-if(!isset($_GET["id"]))
+if (!isset($_GET["id"]))
     redirect("illegalAction.php");
 
 $id = (int) $_GET["id"];
