@@ -116,6 +116,7 @@
     padding: 1em;
     margin-top: 1em;
     text-align: justify;
+    overflow-wrap: anywhere;
 }
 
 .photoViewContentBorder {

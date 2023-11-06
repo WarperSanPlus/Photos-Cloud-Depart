@@ -31,7 +31,8 @@ $viewContent = <<<HTML
     <h3> Voulez-vous vraiment effacer le compte suivant? </h3>
     <div class="form">
         <div>
-    <img src="$avatar" alt="Photo de l'utilisateur"> 
+        <div style="width: fit-content;margin: auto;"><img src="$avatar" class="" style="max-width:100%;max-height:60vh;"/></div>
+    
     <p>$username</p>   
     </div>
         <a href=$url><button class="form-control btn-danger">Effacer le compte</button>
