@@ -1,6 +1,6 @@
 <?php
 require 'php/sessionManager.php';
-
+userAccess();
 $errorPage = "errorPage.php";
 
 // --- Get Photo ID ---
