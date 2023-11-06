@@ -120,7 +120,7 @@ class Photo extends Record
             Photo::createIndicator($ownerAvatar, $ownerName)
         ];
 
-        if (isset($_SESSION["currentUserId"]) && $ownerId == (int) $_SESSION["currentUserId"]) {
+        if ($isAdmin || isset($_SESSION["currentUserId"]) && $ownerId == (int) $_SESSION["currentUserId"]) {
             $visible = true;
             $editCmd = <<<HTML
             <a href="editPhotoForm.php?id=$id" class="cmdIconSmall fa fa-pencil" title="Modifier '$title'"> </a>
@@ -128,7 +128,7 @@ class Photo extends Record
             HTML;
 
             // Show shared indicator only when it's your own image
-            if ($shared) {
+            if ($isAdmin || $shared) {
                 array_push($indicators, Photo::createIndicator('images/shared.png', 'Photo partagée', 'photosList.php?sort=shared'));
             }
         } else {
@@ -141,11 +141,11 @@ class Photo extends Record
         //     array_push($indicators, Photo::createIndicator('images/shared.png', 'Photo partagée', 'photosList.php?sort=shared'));
         // }
 
-        // Disable private indicator if own image is private
-        if (!$shared && !$visible) {
-            //if (!$shared) { // Show if own image is private 
-            array_push($indicators, Photo::createIndicator('images/private.png', 'Photo privée', 'photosList.php?sort=privated'));
-        }
+        // // Disable private indicator if own image is private
+        // if (!$shared && !$visible) {
+        //     //if (!$shared) { // Show if own image is private 
+        //     array_push($indicators, Photo::createIndicator('images/private.png', 'Photo privée', 'photosList.php?sort=privated'));
+        // }
 
         $photoHTML = "";
 

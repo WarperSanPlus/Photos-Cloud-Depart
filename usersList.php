@@ -40,7 +40,9 @@ foreach ($list as $User) {
     $id = strval($User->id());
     $email = $User->Email();
     $ids = (int) ($User->id());
-    if ($id == $currentUserId || $email == "admin@clg.qc.ca") { // Always hide Super Admin
+    
+    // || $email == "admin@clg.qc.ca"
+    if ($id == $currentUserId) { // Always hide Super Admin
         continue;
     }
 

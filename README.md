@@ -2,14 +2,9 @@
 - [ ] Clean components by set 'user-select' to 'none'.
 - [ ] Afficher la date de création selon l'horaire local
 - [ ] Specialize errorPage.php
-- [ ] Center the avatar on deleteProfil.php
 - [ ] Check if the different page's menu's options are appropriate
-- [ ] Comment the super admin mention in usersList.php 
 - [ ] Move title from viewPhoto.php from 'title bar' to 'content'.
 - [ ] Scale pictures depending on screen size
-- [ ] Make the admin able to modify all pictures
-- [ ] Ask if having only the "private" icon is ok
-- [ ] Change block/unblock icons
 
 # WIP
 - [ ] Empêcher l’accès illégal des pages réservées aux admins[^2].
@@ -31,6 +26,9 @@
 description de largeur réactive, date et heure de création en français). Cette page sera obtenue en cliquant sur la photo dans la liste de photos.
 - [X] Donner accès à l'effacement d'un usager avec confirmation de retrait.
 - [X] Evaluate if any 'include' should be 'require' instead 
+- [X] Center the avatar on deleteProfil.php
+- [X] Comment the super admin mention in usersList.php 
+- [X] Make the admin able to modify all pictures
 
 [^1]: À optimiser
 [^2]: Fait dans les pages déjà faites

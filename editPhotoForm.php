@@ -17,7 +17,7 @@ if ($photo == null)
     redirect("illegalAction.php");
 
 $ownerId = $photo->OwnerId();
-if ($ownerId != (int) $_SESSION["currentUserId"])
+if ($ownerId != (int) $_SESSION["currentUserId"] && (!isset($_SESSION["isAdmin"]) || !$_SESSION["isAdmin"]))
     redirect("illegalAction.php");
 
 $title = $photo->Title();
