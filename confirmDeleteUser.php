@@ -9,6 +9,10 @@ adminAccess(200);
 if (!isset($_POST["Id"]))
     redirect($errorPage);
 
+
+
+ $id = $_POST["Id"];
+
 $user = UsersFile()->get((int) $_POST["Id"]);
 
 if ($user == null)
@@ -17,6 +21,9 @@ if ($user == null)
 $username = $user->name();
 $avatar = $user->avatar();
 $viewTitle = "Retrait d'un compte";
+$url = "deleteProfil.php";
+$url .= "?Id=".$_POST["Id"];
+
 
 $viewContent = <<<HTML
 <div class="content loginForm">
@@ -27,7 +34,7 @@ $viewContent = <<<HTML
     <img src="$avatar" alt="Photo de l'utilisateur"> 
     <p>$username</p>   
     </div>
-        <a href="deleteProfil.php"><button class="form-control btn-danger">Effacer le compte</button>
+        <a href=$url><button class="form-control btn-danger">Effacer le compte</button>
         <br>
         <a href="usersList.php" class="form-control btn-secondary">Annuler</a>
     </div>

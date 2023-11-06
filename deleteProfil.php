@@ -5,10 +5,10 @@ include 'models/photos.php';
 
 adminAccess();
 
-if (!isset($_POST["Id"]))
+if (!isset($_GET["Id"]))
     redirect("errorPage.php");
 
-$currentUserId = (int) $_POST["Id"];
+$currentUserId = (int) $_GET["Id"];
 
 $photosFile = PhotosFile();
 $photos = $photosFile->toArray();
