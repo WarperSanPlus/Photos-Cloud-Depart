@@ -1,6 +1,6 @@
 <?php
-    include 'php/sessionManager.php';
-    include 'models/users.php';
+    require 'php/sessionManager.php';
+    require 'models/users.php';
     $viewTitle = "Profil";
     
     userAccess();
@@ -107,6 +107,6 @@
             addConflictValidation('testConflict.php', 'Email', 'saveUser' );
         </script>
     HTML;
-    include "views/master.php";
+    require "views/master.php";
 
 

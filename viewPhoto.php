@@ -1,5 +1,5 @@
 <?php
-include 'php/sessionManager.php';
+require 'php/sessionManager.php';
 
 $errorPage = "errorPage.php";
 
@@ -11,8 +11,8 @@ if (!isset($_GET["Id"])) {
 $id = $_GET["Id"];
 // ---
 
-include "models/photos.php";
-include "models/users.php";
+require "models/photos.php";
+require "models/users.php";
 
 // --- Get Photo ---
 $photo = PhotosFile()->get((int) $id);
@@ -96,4 +96,4 @@ HTML;
 $viewTitle = "Photo";
 // ---
 
-include "views/master.php";
+require "views/master.php";

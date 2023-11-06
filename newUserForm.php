@@ -91,6 +91,6 @@
             addConflictValidation('testConflict.php', 'Email', 'saveUser' );
         </script>
     HTML;
-    include "views/master.php";
+    require "views/master.php";
 
 

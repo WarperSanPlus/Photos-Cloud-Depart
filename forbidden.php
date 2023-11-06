@@ -12,4 +12,4 @@ $viewScript = <<<HTML
             $("#addPhotoCmd").hide();
         </script>
         HTML;
-include "views/master.php";
+require "views/master.php";

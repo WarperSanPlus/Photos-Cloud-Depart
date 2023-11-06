@@ -1,6 +1,6 @@
 <?php
-include 'php/sessionManager.php';
-include_once "models/Users.php";
+require 'php/sessionManager.php';
+require_once "models/Users.php";
 
 /**
  * @param mixed $id ID de l'utilisateur concerné
@@ -115,4 +115,4 @@ $viewScript = <<<HTML
     </script>
 HTML;
 
-include "views/master.php";
+require "views/master.php";

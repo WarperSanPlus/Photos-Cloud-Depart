@@ -1,6 +1,6 @@
 <?php
-include 'php/sessionManager.php';
-include 'models/users.php';
+require 'php/sessionManager.php';
+require 'models/users.php';
 
 $errorPage = "errorPage.php";
 
@@ -46,4 +46,4 @@ $viewScript = <<<HTML
         $("#addPhotoCmd").hide();
     </script>
 HTML;
-include "views/master.php";
+require "views/master.php";

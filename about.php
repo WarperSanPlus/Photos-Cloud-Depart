@@ -1,5 +1,5 @@
 <?php
-include 'php/sessionManager.php';
+require 'php/sessionManager.php';
 
 anonymousAccess(200);
 
@@ -24,4 +24,4 @@ $viewScript = <<<HTML
         $("#addPhotoCmd").hide();
     </script>
 HTML;
-include "views/master.php";
+require "views/master.php";

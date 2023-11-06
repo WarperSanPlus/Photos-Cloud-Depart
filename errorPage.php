@@ -8,4 +8,4 @@ $viewContent = <<<HTML
     </div>
 HTML;
 
-include "views/master.php";
+require "views/master.php";

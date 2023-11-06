@@ -1,6 +1,6 @@
 <?php
-include 'php/sessionManager.php';
-include 'models/photos.php';
+require 'php/sessionManager.php';
+require 'models/photos.php';
 $viewTitle = "Retrait de photo";
 
 userAccess(200);
@@ -48,4 +48,4 @@ $viewScript = <<<HTML
             $("#addPhotoCmd").hide();
         </script>
     HTML;
-include "views/master.php";
+require "views/master.php";

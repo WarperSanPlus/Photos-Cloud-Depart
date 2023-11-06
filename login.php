@@ -1,7 +1,7 @@
 <?php
-include 'php/sessionManager.php';
-include 'php/formUtilities.php';
-include 'models/users.php';
+require 'php/sessionManager.php';
+require 'php/formUtilities.php';
+require 'models/users.php';
 
 $id = 0;
 $password = null;

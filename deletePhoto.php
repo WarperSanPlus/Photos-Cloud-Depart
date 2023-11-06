@@ -1,6 +1,6 @@
 <?php
-include 'php/sessionManager.php';
-include 'models/photos.php';
+require 'php/sessionManager.php';
+require 'models/photos.php';
 $viewTitle = "Retrait de photo";
 
 userAccess();

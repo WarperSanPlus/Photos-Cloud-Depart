@@ -1,7 +1,7 @@
 <?php
-include 'php/sessionManager.php';
-include 'models/users.php';
-include 'models/photos.php';
+require 'php/sessionManager.php';
+require 'models/users.php';
+require 'models/photos.php';
 
 adminAccess();
 

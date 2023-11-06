@@ -1,6 +1,6 @@
 <?php
-    include 'php/sessionManager.php';
-    include 'models/users.php';
+    require 'php/sessionManager.php';
+    require 'models/users.php';
     $viewTitle = "Retrait de compte";
     
     userAccess(200);
@@ -21,4 +21,4 @@
             $("#addPhotoCmd").hide();
         </script>
     HTML;
-    include "views/master.php";
+    require "views/master.php";
