@@ -3,6 +3,7 @@
 
 - [ ] Clean components by set 'user-select' to 'none'.
 - [ ] Check if the different page's menu's options are appropriate
+- [ ] Check if everything is working
 
 # WIP
 - [x] Donner accès à la fonction octroyer/enlever le droit administrateur[^1].

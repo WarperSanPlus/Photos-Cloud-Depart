@@ -13,7 +13,9 @@ $photo = PhotosFile()->get($id);
 if ($photo == null)
     redirect("illegalAction.php");
 
-if ($photo->OwnerId() != (int) $_SESSION["currentUserId"])
+$isAdmin = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"];
+
+if (!$isAdmin && $photo->OwnerId() != (int) $_SESSION["currentUserId"])
     redirect("illegalAction.php");
 
 $title = $photo->Title();
