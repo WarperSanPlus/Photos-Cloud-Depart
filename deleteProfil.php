@@ -4,17 +4,14 @@ require 'models/users.php';
 require 'models/photos.php';
 
 adminAccess();
-session_start();
+//session_start();
 
-if (!isset($_GET["Id"])){
-
-
-    $_SESSION["Error"] = "ID non trouver/valide pour delete un profil";
-    redirect("errorPage.php");
+if (!isset($_POST["Id"])){
+    onError("ID non trouver/valide pour delete un profil");
 }
     
 
-$currentUserId = (int) $_GET["Id"];
+$currentUserId = (int) $_POST["Id"];
 
 $photosFile = PhotosFile();
 $photos = $photosFile->toArray();
