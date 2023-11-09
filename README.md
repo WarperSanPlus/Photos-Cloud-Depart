@@ -1,6 +1,4 @@
 # TO DO
-- [ ] Specialize errorPage.php
-
 - [ ] Clean components by set 'user-select' to 'none'.
 - [ ] Check if the different page's menu's options are appropriate
 - [ ] Check if everything is working
@@ -31,5 +29,6 @@ description de largeur réactive, date et heure de création en français). Cett
 - [X] Move title from viewPhoto.php from 'title bar' to 'content'.
 - [X] Scale pictures depending on screen size
 - [X] Empêcher l’accès illégal des pages réservées aux admins.
+- [X] Specialize errorPage.php
 
 [^1]: À optimiser

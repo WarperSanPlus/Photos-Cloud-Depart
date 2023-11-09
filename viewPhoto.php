@@ -1,64 +1,56 @@
 <?php
 require 'php/sessionManager.php';
 userAccess();
-$errorPage = "errorPage.php";
 
 // --- Get Photo ID ---
 if (!isset($_GET["Id"])) {
-    redirect($errorPage);
+    onError("Image ID was not found.");
 }
 
-$id = $_GET["Id"];
+$id = (int) $_GET["Id"];
 // ---
 
 require "models/photos.php";
 require "models/users.php";
 
 // --- Get Photo ---
-$photo = PhotosFile()->get((int) $id);
+$photo = PhotosFile()->get($id);
 if ($photo == null) {
-    redirect($errorPage);
+    onError("No image has the id '$id'.");
 }
 // ---
 
 // --- Get User ---
-$user = UsersFile()->get($photo->OwnerId());
+$userId = $photo->OwnerId();
+$user = UsersFile()->get($userId);
 
 if ($user == null) {
-    redirect($errorPage);
+    onError("No user has the id '$userId'.");
 }
 // ---
-
-$viewContent = <<<HTML
-<div style="margin-top:1em;">
-HTML;
 
 // --- Username ---
 $username = $user->name();
 
-// $viewContent .= $username;
+// --- Avatar ---
+$userAvatarIndicator = Photo::createIndicator($user->avatar(), $username);
 // ---
 
-// --- Avatar ---
-$avatar = $user->avatar();
-
-// $viewContent .= <<<HTML
-// <div><img src="$avatar"/></div>
-// HTML;
+$username = <<< HTML
+<div><p class="viewTitle">$username</p></div>
+HTML;
 // ---
 
 // --- Titre ---
 $titre = $photo->Title();
-$viewContent .= <<<HTML
+$titre = <<<HTML
 <div style="text-align:center;font-size:2em;text-decoration:underline;font-weight:bold;"><p>$titre</p></div>
 HTML;
-// $viewContent .= $titre;
-
+// ---
 
 // --- Image ---
 $image = $photo->Image();
-
-$viewContent .= <<<HTML
+$image = <<<HTML
 <div style="width: 80%;margin: auto;"><img src="$image" class="photoViewContentBorder" style="width:100%;height:100%;"/></div>
 HTML;
 // ---
@@ -66,47 +58,44 @@ HTML;
 // --- Description ---
 $description = $photo->Description();
 
-$viewContent .= <<<HTML
+$description = <<<HTML
 <div class="photoViewDescription photoViewContentBorder">$description</div>
 HTML;
 // ---
 
 // --- Date ---
-
-//$date = date("l-F-Y H:i:s", $photo->creationDate());
-
 $fmt = datefmt_create(
     'fr-FR',
     IntlDateFormatter::FULL,
     IntlDateFormatter::FULL,
     'America/New_York',
     IntlDateFormatter::GREGORIAN,
-    'cccc d LLLL y HH:mm:ss'
+    'cccc d LLLL y HH:mm:ss' // lundi 6 novembre 2023 23:23:23
 );
-$date =datefmt_format($fmt, $photo->creationDate());
+$date = datefmt_format($fmt, $photo->creationDate());
 
-
-
-// $viewContent .= <<<HTML
-// <div> <p> cette photo a été posté le " $date "<p><div>
-// HTML;    
+$date = <<< HTML
+<div><p>$date</p></div>
+HTML;
 // ---
-
-$userAvatarIndicator = Photo::createIndicator($avatar, $username);
 
 $viewContent = <<<HTML
 <div class="photoViewTitle">
     <div style="display: grid;grid-template-columns: auto auto;">
         $userAvatarIndicator
-        <div><p class="viewTitle">$username</p></div>
+        $username
     </div>
-    <div><p>$date</p></div>
+    $date
 </div>
-$viewContent
+<div style="margin-top:1em;">
+    $titre
+    $image
+    $description
+</div>
 HTML;
 
 // --- Titre de la page ---
-// $viewTitle = "'$titre' par $username";
+//$viewTitle = "'$titre' par $username";
 $viewTitle = "Photo";
 // ---
 

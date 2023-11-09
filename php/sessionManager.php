@@ -73,3 +73,9 @@ function adminAccess($timeout = defaultTimeout)
     else
         redirect('illegalAction.php');
 }
+
+function onError($message) {
+    $_SESSION["Error"] = $message;
+
+    redirect("errorPage.php");
+}
