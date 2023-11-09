@@ -18,8 +18,7 @@ if ($user == null)
 $username = $user->name();
 $avatar = $user->avatar();
 $viewTitle = "Retrait d'un compte";
-$url = "deleteProfil.php";
-$url .= "?Id=".$_POST["Id"];
+$url = "deleteProfil.php?Id=".$id;
 
 $viewContent = <<<HTML
 <div class="content loginForm">
@@ -33,7 +32,10 @@ $viewContent = <<<HTML
         
         <p>$username</p>   
         </div>
-        <a href=$url><button class="form-control btn-danger">Effacer le compte</button>
+        <form method="POST" action="$url">
+            <input type="hidden" name="Id" value="$id">
+            <input type="submit" class="form-control btn-danger" value="Effacer le compte">
+        </form>
         <br>
         <a href="usersList.php" class="form-control btn-secondary">Annuler</a>
     </div>
