@@ -1,13 +1,12 @@
 <?php
 require 'php/sessionManager.php';
-require 'models/users.php';
 
-$errorPage = "errorPage.php";
-
-adminAccess(200);
+adminAccess();
 
 if (!isset($_POST["Id"]))
     onError("No ID was defined.");
+
+require 'models/users.php';
 
 $id = (int) $_POST["Id"];
 $user = UsersFile()->get($id);
