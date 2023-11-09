@@ -23,7 +23,7 @@ $username = $user->name();
 $avatar = $user->avatar();
 $viewTitle = "Retrait d'un compte";
 $url = "deleteProfil.php";
-//$url .= "?Id=".$_POST["Id"];
+$url .= "?Id=".$_POST["Id"];
 
 
 $viewContent = <<<HTML
