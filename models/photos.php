@@ -131,6 +131,9 @@ class Photo extends Record
             if ($shared) {
                 array_push($indicators, Photo::createIndicator('images/shared.png', 'Photo partagée', 'photosList.php?sort=shared'));
             }
+            else {
+                array_push($indicators, Photo::createIndicator('images/private.png', 'Photo privée', 'photosList.php?sort=privated'));
+            }
         } else {
             $visible = $shared;
             $editCmd = "";
@@ -140,12 +143,6 @@ class Photo extends Record
         // if ($shared) {
         //     array_push($indicators, Photo::createIndicator('images/shared.png', 'Photo partagée', 'photosList.php?sort=shared'));
         // }
-
-        // Disable private indicator if own image is private
-        if (!$shared && ($visible || $isAdmin)) {
-            //if (!$shared) { // Show if own image is private 
-            array_push($indicators, Photo::createIndicator('images/private.png', 'Photo privée', 'photosList.php?sort=privated'));
-        }
 
         $photoHTML = "";
 
