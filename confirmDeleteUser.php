@@ -6,8 +6,9 @@ $errorPage = "errorPage.php";
 
 adminAccess(200);
 
-if (!isset($_POST["Id"]))
-    redirect($errorPage);
+if (!isset($_POST["Id"])){
+    $_SESSION["Error"] = "ID non trouver/valide pour delete un profil";
+    redirect($errorPage);}
 
 
 
@@ -22,7 +23,7 @@ $username = $user->name();
 $avatar = $user->avatar();
 $viewTitle = "Retrait d'un compte";
 $url = "deleteProfil.php";
-$url .= "?Id=".$_POST["Id"];
+//$url .= "?Id=".$_POST["Id"];
 
 
 $viewContent = <<<HTML
