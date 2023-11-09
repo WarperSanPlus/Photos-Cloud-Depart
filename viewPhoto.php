@@ -59,7 +59,7 @@ HTML;
 $image = $photo->Image();
 
 $viewContent .= <<<HTML
-<div style="width: fit-content;margin: auto;"><img src="$image" class="photoViewContentBorder" style="max-width:100%;max-height:60vh;"/></div>
+<div style="width: 80%;margin: auto;"><img src="$image" class="photoViewContentBorder" style="width:100%;height:100%;"/></div>
 HTML;
 // ---
 
@@ -79,7 +79,7 @@ $fmt = datefmt_create(
     'fr-FR',
     IntlDateFormatter::FULL,
     IntlDateFormatter::FULL,
-    'America/Los_Angeles',
+    'America/New_York',
     IntlDateFormatter::GREGORIAN,
     'cccc d LLLL y HH:mm:ss'
 );

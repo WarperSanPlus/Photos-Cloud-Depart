@@ -1,12 +1,11 @@
 # TO DO
 - [ ] Specialize errorPage.php
-- [ ] Scale pictures depending on screen size
 
 - [ ] Clean components by set 'user-select' to 'none'.
 - [ ] Check if the different page's menu's options are appropriate
+- [ ] Check if everything is working
 
 # WIP
-- [ ] Empêcher l’accès illégal des pages réservées aux admins[^2].
 - [x] Donner accès à la fonction octroyer/enlever le droit administrateur[^1].
 - [x] Donner accès à la fonction bloquer/débloquer[^1].
 
@@ -30,6 +29,7 @@ description de largeur réactive, date et heure de création en français). Cett
 - [x] Voir mes photos (photos de l’usager connecté).
 - [X] Afficher la date de création selon l'horaire local
 - [X] Move title from viewPhoto.php from 'title bar' to 'content'.
+- [X] Scale pictures depending on screen size
+- [X] Empêcher l’accès illégal des pages réservées aux admins.
 
 [^1]: À optimiser
-[^2]: Fait dans les pages déjà faites
